@@ -319,7 +319,7 @@ defmodule Phoenix.Socket.TransportTest do
       check_origin: ["//endpoint.com"],
       secret_key_base: @secret_key_base
 
-    test "loads the session with custom :csrf_token_session_key" do
+    test "loads the session with custom :csrf_session_key" do
       {:ok, pid} = EndpointWithCustomCSRFToken.start_link()
       Process.sleep(500)
 
@@ -330,7 +330,7 @@ defmodule Phoenix.Socket.TransportTest do
 
         connect_info = load_connect_info(
           session: {Endpoint, :session_config, []},
-          csrf_token_session_key: "_custom_csrf_token"
+          csrf_session_key: "_custom_csrf_token"
         )
 
         assert %{session: %{"from_session" => "123"}} =
@@ -341,7 +341,7 @@ defmodule Phoenix.Socket.TransportTest do
 
         connect_info = load_connect_info(
           session: {Endpoint, :session_config, []},
-          csrf_token_session_key: "bad-key"
+          csrf_session_key: "bad-key"
         )
 
         assert %{session: nil} =
