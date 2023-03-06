@@ -484,10 +484,10 @@ defmodule Phoenix.Socket.Transport do
     end
   end
 
-  defp connect_session(conn, endpoint, {:mfa, {module, function, args}}, csrf_session_key) do
+  defp connect_session(conn, endpoint, {:mfa, {module, function, args}}) do
     case apply(module, function, args) do
       session_config when is_list(session_config) ->
-        connect_session(conn, endpoint, init_session(session_config), csrf_session_key)
+        connect_session(conn, endpoint, init_session(session_config))
 
       other ->
         raise ArgumentError,
