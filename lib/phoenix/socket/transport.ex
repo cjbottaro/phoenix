@@ -122,9 +122,9 @@ defmodule Phoenix.Socket.Transport do
   Connects to the socket.
 
   The transport passes a map of metadata and the socket
-  returns `{:ok, state}`. `{:error, reason}` or `:error`. 
-  The state must be stored by the transport and returned 
-  in all future operations. `{:error, reason}` can only 
+  returns `{:ok, state}`. `{:error, reason}` or `:error`.
+  The state must be stored by the transport and returned
+  in all future operations. `{:error, reason}` can only
   be used with websockets.
 
   This function is used for authorization purposes and it
@@ -459,11 +459,7 @@ defmodule Phoenix.Socket.Transport do
           {:user_agent, fetch_user_agent(conn)}
 
         {:session, session} ->
-          csrf_session_key = Enum.find_value(keys, "_csrf_token", fn
-            {:csrf_session_key, csrf_session_key} -> csrf_session_key
-            _ -> false
-          end)
-          {:session, connect_session(conn, endpoint, session, csrf_session_key)}
+          {:session, connect_session(conn, endpoint, session)}
 
         {key, val} ->
           {key, val}
